@@ -11,14 +11,6 @@ from langchain_openai import ChatOpenAI
 from langgraph.constants import Send
 from langgraph.graph import END, MessagesState, START, StateGraph
 
-### Memory
-from langgraph.checkpoint.memory import MemorySaver
-memory = MemorySaver()
-# Specify a thread
-import uuid
-fresh_uuid = uuid.uuid4()
-config = {"configurable": {"thread_id": fresh_uuid}}
-
 ### LLM
 
 llm = ChatOpenAI(model="gpt-4o", temperature=0) 
@@ -552,4 +544,3 @@ builder.add_edge("finalize_report", END)
 
 # Compile
 graph = builder.compile(interrupt_before=['human_feedback'])
-# graph = builder.compile(interrupt_before=['human_feedback'],checkpointer=memory)
